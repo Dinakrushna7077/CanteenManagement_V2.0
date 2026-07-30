@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Microsoft.EntityFrameworkCore;
 
 namespace CanteenManagement_2._0.Models;
 
@@ -13,7 +12,6 @@ public partial class Attendance
     public int Id { get; set; }
 
     [StringLength(20)]
-    [Unicode(false)]
     public string Alias { get; set; } = null!;
 
     public DateOnly Date { get; set; }
