@@ -4,12 +4,12 @@ namespace CanteenManagement_2._0.Data
 {
     public class DapperContext
     {
-        IConfiguration config;
+        protected readonly IConfiguration config;
         public DapperContext(IConfiguration _config)
         {
             config= _config;
         }
-        protected SqlConnection GetConnection()
+        public SqlConnection GetConnection()
         {
             return new SqlConnection(config.GetConnectionString("DefaultConnection"));
         }
