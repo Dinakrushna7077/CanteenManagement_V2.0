@@ -1,4 +1,4 @@
-html {
+/*html {
   font-size: 14px;
 }
 
@@ -15,8 +15,67 @@ html {
 html {
   position: relative;
   min-height: 100%;
+}*/
+
+/*---------------------------------------*/
+/*.sticky-top {
+    position:sticky;
+    top: 0px !important;
+    z-index: 1020 !important;
+}*/
+
+.cn-bg {
+    background-color: #2d3e50 !important;
 }
 
-body {
-  margin-bottom: 60px;
+.navbar.scrolled-up {
+    background-color: #2d3e50 !important;
+    transition: background-color 0.3s;
+}
+
+.text-elearning {
+    color: #2d3e50 !important;
+    background-color: white !important;
+}
+
+.navbar-light .navbar-nav .nav-link,
+.navbar-light .navbar-brand {
+    color: #333;
+    transition: color 0.3s;
+}
+
+.navbar.scrolled-up .nav-link, .navbar.scrolled-up .navbar-brand {
+    color: #f8f9fa !important;
+}
+
+    .navbar.scrolled-up .nav-link.active {
+        color: #ffd54f !important;
+        font-weight: 600;
+    }
+
+.navbar.scrolled-up .btn-primary:hover {
+    background-color: #e6c244;
+    border-color: #e6c244;
+    color: #1f2b3a;
+}
+
+#profile {
+    height: 2.8rem !important;
+    width: 2.8rem !important;
+    background-color: #2d3e50;
+    text-decoration: none;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: large;
+    display: inline-block;
+}
+
+.nav-footer-color {
+    background-color: #2d3e50;
+    color: white;
+}
+.cn-footer{
+    height:5rem;
 }
