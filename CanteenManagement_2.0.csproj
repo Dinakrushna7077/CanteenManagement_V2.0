@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <Folder Include="Services\Interfaces\" />
+    <Folder Include="wwwroot\Assets\" />
   </ItemGroup>
 
   <ItemGroup>
