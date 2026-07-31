@@ -79,3 +79,7 @@ html {
 .cn-footer{
     height:5rem;
 }
+.brand-scroll-img {
+    filter: drop-shadow(0 100px 0 white);
+    transform: translateY(-100px);
+}

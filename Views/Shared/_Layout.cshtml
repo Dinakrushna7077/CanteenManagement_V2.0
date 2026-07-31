@@ -13,7 +13,7 @@
     <header class="sticky-top">
         <nav class="navbar navbar-expand-lg navbar-light shadow-sm" id="mainNavbar">
             <div class="container-fluid">
-                <a class="navbar-brand e-learning fw-bolder" href="#"><img src="" height="30" alt="Canteen" /></a>
+                <a class="navbar-brand e-learning fw-bolder brand-img" asp-action="#"><img src="~/fav.png" height="30" alt="Canteen" id="cn"/></a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -64,13 +64,16 @@
     </footer>
     <script>
         const navbar = document.getElementById("mainNavbar");
+        const cn = document.getElementById("cn");
         window.addEventListener("scroll", function () {
             console.log("Working");
             const currentScroll = window.scrollY;
             if (currentScroll === 0) {
                 navbar.classList.remove("scrolled-up");
+                cn.classList.remove("brand-scroll-img");
             } else {
                 navbar.classList.add("scrolled-up");
+                cn.classList.add("brand-scroll-img");
             }
         });
     </script>
