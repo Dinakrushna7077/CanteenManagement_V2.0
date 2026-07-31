@@ -1,0 +1,80 @@
+﻿@model CanteenManagement_2._0.Models.LoginViewModel
+@{
+    ViewBag.Title = "Login Page";
+    //Layout = null; // No layout for this page
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+</head>
+
+<body>
+
+    <div class="container-fluid min-vh-100 d-flex align-items-center">
+        <div class="row w-100">
+
+            <!-- Left Content -->
+            <div class="col-md-6 d-flex align-items-center justify-content-center">
+                <div class="left-content text-dark">
+                    <div>
+                        <h2>Welcome to Canteen Portal</h2>
+
+                        <p>
+                            regular delicious meals, track your daily food wallet balance, and skip the queue with fast digital checkouts.
+                        </p>
+
+                        <ul class="list-unstyled">
+                            <li><i class="bi bi-check-circle-fill me-2"></i> Daily attendance tracking (Breakfast, Lunch, Dinner & Extras)</li>
+                            <li><i class="bi bi-check-circle-fill me-2"></i> Easy meal ON / OFF scheduling</li>
+                            <li><i class="bi bi-check-circle-fill me-2"></i> Monthly mess bill & token logs</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Login Form -->
+            <div class="col-md-6 d-flex align-items-center justify-content-center">
+                <div class="login-card">
+
+                    <div class="text-center mb-4">
+                        <h4 class="fw-bold">College Canteen Login</h4>
+                        <p class="text-muted small mb-0">Access your canteen dashboard</p>
+                    </div>
+
+                    @using (Html.BeginForm("Login", "Login", FormMethod.Post))
+                    {
+                        @Html.AntiForgeryToken()
+                        <div class="input-group-custom container-fluid">
+                            <label class="form-label">Email ID Or User Name</label>
+                            <div class="text-danger">@ViewBag.Error</div>
+                            <input asp-for="UserId" type="text" placeholder="Email ID or User Name" class="form-control w-100" />
+                        </div>
+
+                        <div class="input-group-custom container-fluid">
+                            <label class="form-label">Password</label>
+                            <div class="text-danger">@ViewBag.PassError</div>
+                            <input asp-for="Password" type="password" placeholder="Password" class="form-control w-100" />
+
+                        </div>
+
+                        <div class="d-grid mb-3">
+                            <button type="submit" class="btn btn-primary">Login</button>
+                        </div>
+
+                        <div class="text-center small">
+                            <a href="#" class="text-decoration-none text-muted">Forgot password?</a>
+                        </div>
+                    }
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+</html>

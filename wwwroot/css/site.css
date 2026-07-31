@@ -24,6 +24,10 @@ html {
     z-index: 1020 !important;
 }*/
 
+body{
+    background-color:aliceblue;
+}
+
 .cn-bg {
     background-color: #2d3e50 !important;
 }
@@ -82,4 +86,57 @@ html {
 .brand-scroll-img {
     filter: drop-shadow(0 100px 0 white);
     transform: translateY(-100px);
+}
+
+
+/*For Login page*/
+.login-card {
+    background-color: #ffffff;
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    width: 100%;
+}
+
+.input-group-custom {
+    margin-bottom: 1.2rem;
+}
+
+.form-label {
+    font-weight: 500;
+    margin-bottom: 6px;
+}
+
+.btn-primary {
+    border-radius: 8px;
+    font-weight: 600;
+}
+
+.left-content {
+    padding: 2rem;
+}
+
+    .left-content h2 {
+        font-weight: 700;
+    }
+
+    .left-content p {
+        font-size: 1.1rem;
+        opacity: 0.9;
+    }
+
+.bi-check-circle-fill {
+    color: #198754;
+}
+
+@media (max-width: 767.98px) {
+    .left-content {
+        text-align: center;
+        padding-bottom: 2rem;
+    }
+
+    .login-card {
+        margin: 0 auto;
+    }
 }
