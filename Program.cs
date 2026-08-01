@@ -1,7 +1,18 @@
+using CanteenManagement_2._0.Data;
+using CanteenManagement_2._0.Repository;
+using CanteenManagement_2._0.Repository.Interfaces;
+using CanteenManagement_2._0.Services;
+using CanteenManagement_2._0.Services.Interfaces;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddScoped<DapperContext>();
+builder.Services.AddScoped<IAccountRepository,AccountRepository>();
+builder.Services.AddScoped<IAccountService,AccountService>();
+
+
 
 var app = builder.Build();
 
