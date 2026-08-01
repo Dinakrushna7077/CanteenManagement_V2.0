@@ -45,8 +45,7 @@
                         <p class="text-muted small mb-0">Access your canteen dashboard</p>
                     </div>
 
-                    @using (Html.BeginForm("Login", "Login", FormMethod.Post))
-                    {
+                    <form method="post" asp-action="login" asp-controller="Account">
                         @Html.AntiForgeryToken()
                         <div class="input-group-custom container-fluid">
                             <label class="form-label">Email ID Or User Name</label>
@@ -68,7 +67,7 @@
                         <div class="text-center small">
                             <a href="#" class="text-decoration-none text-muted">Forgot password?</a>
                         </div>
-                    }
+                    </form>
 
                 </div>
             </div>
