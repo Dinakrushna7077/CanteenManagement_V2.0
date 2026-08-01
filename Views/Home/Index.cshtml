@@ -1,3 +1,314 @@
-﻿<div class="vh-100">
-    index
+﻿@{
+    ViewData["Title"] = "Canteen Home";
+}
+
+<style>
+    .hero-carousel .carousel-item {
+        height: 75vh;
+        min-height: 480px;
+    }
+
+    .hero-carousel img {
+        height: 100%;
+        object-fit: cover;
+        filter: brightness(0.65);
+    }
+
+    .hero-overlay {
+        background: linear-gradient(0deg, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.1) 100%);
+    }
+
+    .meal-card {
+        border: none;
+        border-radius: 1rem;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+        .meal-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08) !important;
+        }
+
+    .meal-img-container {
+        height: 220px;
+        overflow: hidden;
+        border-top-left-radius: 1rem;
+        border-top-right-radius: 1rem;
+    }
+
+        .meal-img-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+    .meal-card:hover .meal-img-container img {
+        transform: scale(1.05);
+    }
+
+    .table-schedule th {
+        background-color: #2d3e50;
+        opacity:90%;
+        color: white;
+        text-transform: uppercase;
+        font-size: 0.85rem;
+        letter-spacing: 0.5px;
+    }
+</style>
+
+<div class="container mt-3">
+    @if (TempData["warningMessage"] != null)
+    {
+        <div class="alert alert-warning alert-dismissible fade show rounded-3 shadow-sm" role="alert">
+            <i class="bi bi-exclamation-triangle-fill me-2"></i> @TempData["warningMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+    @if (TempData["successMessage"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show rounded-3 shadow-sm" role="alert">
+            <i class="bi bi-check-circle-fill me-2"></i> @TempData["successMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
 </div>
+
+<section class="container-fluid px-0 mb-5">
+    <div id="heroCanteenCarousel" class="carousel slide carousel-fade hero-carousel " data-bs-ride="carousel">
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#heroCanteenCarousel" data-bs-slide-to="0" class="active"></button>
+            <button type="button" data-bs-target="#heroCanteenCarousel" data-bs-slide-to="1"></button>
+            <button type="button" data-bs-target="#heroCanteenCarousel" data-bs-slide-to="2"></button>
+        </div>
+        <div class="carousel-inner  rounded-3">
+            <div class="carousel-item active" data-bs-interval="6000">
+                <img src="~/Assets/canteen3.jpeg" class="d-block w-100" alt="Fresh Canteen Meals">
+                <div class="carousel-caption hero-overlay d-flex flex-column justify-content-center h-100 bottom-0 start-0 end-0 px-4">
+                    <div class="container">
+                        <span class="badge bg-primary px-3 py-2 rounded-pill mb-3">Fresh & Hot</span>
+                        <h1 class="display-4 fw-bold">Freshly Prepared Everyday</h1>
+                        <p class="lead col-lg-8 mx-auto text-light opacity-90">Serving fresh, delicious meals designed to create a positive dining experience for everyone on campus.</p>
+                        <a href="#schedule" class="btn btn-warning btn-lg fw-semibold mt-2 px-4 rounded-pill">View Weekly Menu</a>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-item" data-bs-interval="6000">
+                <img src="~/Assets/canteen4.jpeg" class="d-block w-100" alt="Healthy Meals">
+                <div class="carousel-caption hero-overlay d-flex flex-column justify-content-center h-100 bottom-0 start-0 end-0 px-4">
+                    <div class="container">
+                        <span class="badge bg-success px-3 py-2 rounded-pill mb-3">Nutritious Choice</span>
+                        <h1 class="display-4 fw-bold">Nourish Your Body</h1>
+                        <p class="lead col-lg-8 mx-auto text-light opacity-90">By offering balanced and nutritious food options, we contribute to the daily well-being and energy of our community.</p>
+                        <a href="#menu-details" class="btn btn-light btn-lg fw-semibold mt-2 px-4 rounded-pill">Explore Categories</a>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-item" data-bs-interval="6000">
+                <img src="~/Assets/canten1.jpeg" class="d-block w-100" alt="Special Dishes">
+                <div class="carousel-caption hero-overlay d-flex flex-column justify-content-center h-100 bottom-0 start-0 end-0 px-4">
+                    <div class="container">
+                        <span class="badge bg-danger px-3 py-2 rounded-pill mb-3">Special Delights</span>
+                        <h1 class="display-4 fw-bold">Variety You Will Love</h1>
+                        <p class="lead col-lg-8 mx-auto text-light opacity-90">A wide array of local favorites and hearty dishes ensuring every mealtime is something to look forward to.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#heroCanteenCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#heroCanteenCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+</section>
+
+<section id="about" class="py-4 mb-5">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-8 mx-auto text-center">
+                <span class="text-primary text-uppercase fw-bold tracking-wider fs-6">Welcome to Our Canteen</span>
+                <h2 class="display-6 fw-bold mt-2 mb-3">Serving Quality Meals All Day Long</h2>
+                <p class="lead text-muted">
+                    Our canteen offers a clean, welcoming space serving breakfast, lunch, dinner, and daily specials. We prioritize nutrition, hygiene, and local taste to bring you a comforting food experience every single day.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="schedule" class="container mb-5 pb-3">
+    <div class="card shadow-sm border-0 rounded-4 overflow-hidden">
+        <div class="card-header cn-bg text-white py-3 d-flex justify-content-between align-items-center">
+            <h5 class="mb-0 fw-bold"><i class="bi bi-calendar-week me-2"></i>Weekly Food Goals & Schedule</h5>
+            <span class="badge bg-white text-primary rounded-pill fw-semibold">Standard Menu</span>
+        </div>
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle table-schedule mb-0">
+                    <thead>
+                        <tr>
+                            <th class="ps-4">Day</th>
+                            <th>Breakfast</th>
+                            <th>Lunch</th>
+                            <th>Dinner</th>
+                            <th>Extra / Specials</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="ps-4 fw-bold text-primary">Monday</td>
+                            <td>Bara / Idli / Puri + Guguni</td>
+                            <td>Rice + Dal + Papad + Chips</td>
+                            <td>Roti/Rice + Dal Fry</td>
+                            <td><span class="text-muted">---</span></td>
+                        </tr>
+                        <tr class="table-light">
+                            <td class="ps-4 fw-bold text-primary">Tuesday</td>
+                            <td>Bara / Idli / Puri + Guguni</td>
+                            <td>Rice + Dal + Papad + Chips</td>
+                            <td>Roti/Rice + Dal Fry</td>
+                            <td><span class="text-muted">---</span></td>
+                        </tr>
+                        <tr>
+                            <td class="ps-4 fw-bold text-primary">Wednesday</td>
+                            <td>Bara / Idli / Puri + Guguni</td>
+                            <td>Rice + Dal + Papad + Chips</td>
+                            <td>Roti/Rice + Dal Fry</td>
+                            <td><span class="text-muted">---</span></td>
+                        </tr>
+                        <tr class="table-light">
+                            <td class="ps-4 fw-bold text-primary">Thursday</td>
+                            <td>Bara / Idli / Puri + Guguni</td>
+                            <td>Rice + Dal + Papad + Chips</td>
+                            <td>Roti/Rice + Dal Fry</td>
+                            <td><span class="text-muted">---</span></td>
+                        </tr>
+                        <tr>
+                            <td class="ps-4 fw-bold text-primary">Friday</td>
+                            <td>Bara / Idli / Puri + Guguni</td>
+                            <td>Rice + Dal + Papad + Chips</td>
+                            <td>Roti/Rice + Dal Fry</td>
+                            <td><span class="text-muted">---</span></td>
+                        </tr>
+                        <tr class="table-light">
+                            <td class="ps-4 fw-bold text-primary">Saturday</td>
+                            <td>Bara / Idli / Puri + Guguni</td>
+                            <td>Rice + Dal + Papad + Chips</td>
+                            <td>Roti/Rice + Dal Fry</td>
+                            <td><span class="text-muted">---</span></td>
+                        </tr>
+                        <tr>
+                            <td class="ps-4 fw-bold text-primary">Sunday</td>
+                            <td>Bara / Idli / Puri + Guguni</td>
+                            <td>Rice + Dal + Papad + Chips</td>
+                            <td>Roti/Rice + Dal Fry</td>
+                            <td><span class="text-muted">---</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+<section id="menu-details" class="py-5">
+    <div class="container m-0">
+        <div class="text-center mb-5">
+            <h2 class="fw-bold">Meal Offerings</h2>
+            <p class="text-muted">Explore what we prepare fresh for you throughout the day</p>
+        </div>
+
+        <div id="mealOfferingsCarousel" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <div class="row text-center">
+                        <div class="col-md-4 mb-4">
+                            <div class="card h-100 shadow-sm border-0 rounded-4">
+                                <div class="card-body p-4">
+                                    <i class="bi bi-egg-fried fs-1 text-primary"></i>
+                                    <h5 class="card-title mt-3 fw-bold">Breakfast</h5>
+                                    <p class="card-text text-muted">
+                                        Start your day with soft Idli (ଇଡ୍ଲି), crispy Bara, Alu Chop (ଆଳୁ), and fluffy Puri (ପୁରୀ) paired with flavorful curry.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-4">
+                            <div class="card h-100 shadow-sm border-0 rounded-4">
+                                <div class="card-body p-4">
+                                    <i class="bi bi-sun fs-1 text-primary"></i>
+                                    <h5 class="card-title mt-3 fw-bold">Lunch</h5>
+                                    <p class="card-text text-muted">
+                                        Steamed rice, rich lentils (ଡାଲି), fried veggies (ଭଜା), tender chicken, fresh fish, egg, and Alu Bharta (ଆଳୁ ଭର୍ତା).
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-4">
+                            <div class="card h-100 shadow-sm border-0 rounded-4">
+                                <div class="card-body p-4">
+                                    <i class="bi bi-moon-stars fs-1 text-primary"></i>
+                                    <h5 class="card-title mt-3 fw-bold">Dinner</h5>
+                                    <p class="card-text text-muted">
+                                        Soft Roti, Soya curry, Alu Kasa, Chakuli Pitha, steamed rice, chana dal (ବୁଟ ଡାଲି), and aromatic Tadka.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="carousel-item">
+                    <div class="row text-center">
+                        <div class="col-md-4 mb-4">
+                            <div class="card h-100 shadow-sm border-0 rounded-4">
+                                <div class="card-body p-4">
+                                    <i class="bi bi-sun fs-1 text-primary"></i>
+                                    <h5 class="card-title mt-3 fw-bold">Lunch</h5>
+                                    <p class="card-text text-muted">
+                                        Steamed rice, rich lentils (ଡାଲି), fried veggies (ଭଜା), tender chicken, fresh fish, egg, and Alu Bharta (ଆଳୁ ଭର୍ତା).
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-4">
+                            <div class="card h-100 shadow-sm border-0 rounded-4">
+                                <div class="card-body p-4">
+                                    <i class="bi bi-moon-stars fs-1 text-primary"></i>
+                                    <h5 class="card-title mt-3 fw-bold">Dinner</h5>
+                                    <p class="card-text text-muted">
+                                        Soft Roti, Soya curry, Alu Kasa, Chakuli Pitha, steamed rice, chana dal (ବୁଟ ଡାଲି), and aromatic Tadka.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-4">
+                            <div class="card h-100 shadow-sm border-0 rounded-4">
+                                <div class="card-body p-4">
+                                    <i class="bi bi-fire fs-1 text-primary"></i>
+                                    <h5 class="card-title mt-3 fw-bold">Extras & Non-Veg</h5>
+                                    <p class="card-text text-muted">
+                                        Biryani, grilled chicken, egg omelettes, fish fry, Chilli Gobi, Paneer dishes, and sautéed mushrooms.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <button class="carousel-control-prev" type="button" data-bs-target="#mealOfferingsCarousel" data-bs-slide="prev" style="width: 5%;">
+                <span class="carousel-control-prev-icon bg-dark rounded-circle p-3" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#mealOfferingsCarousel" data-bs-slide="next" style="width: 5%;">
+                <span class="carousel-control-next-icon bg-dark rounded-circle p-3" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+    </div>
+</section>
