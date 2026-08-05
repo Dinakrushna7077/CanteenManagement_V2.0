@@ -24,14 +24,14 @@ namespace CanteenManagement_2._0.Controllers
             var userData=await service.UserLogin(data);
             data.Message = userData.Message;
             if (!userData.Success)
-                return View(data);
+                return Task.FromResult(Json(new { success = false, message = userData.Message })).Result;
             /*if(userData.user.RoleId==1)
                 return RedirectToAction("SuperAdminDashboard");
             if(userData.user.RoleId==2)
                 return RedirectToAction("AdminDashboard");
             if(userData.user.RoleId==3)
                 return RedirectToAction("CustomerDashboard");*/
-            return View(data);
+            return Task.FromResult(Json(new { success = true, message = userData.Message, redirectUrl = Url.Action("Index", "Home") })).Result;
         }
     }
 }
