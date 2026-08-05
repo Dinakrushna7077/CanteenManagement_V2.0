@@ -554,3 +554,40 @@
     </div>
 
 </section>
+<script type="text/javascript">
+    $("#queryForm").submit((event)=>{
+        event.preventDefault();
+        if(isValidForm())
+        {
+            $.ajax({
+                url: '/Home/SubmitQuery',
+                type: 'POST',
+                data:$(this).serialize(),
+                success: function (response) {
+                    if (response.success) {
+                        console.log(response.message);
+                        $("#queryForm")[0].reset();
+                    } else {
+                        console.log(response.message);
+                    }
+                },
+                error: function () {
+                    console.log("An unexpected error occurred. Please try again later.");
+                }
+            });
+        }
+    });
+
+    const isValidForm = () => {
+        const name = $("#name").val().trim();
+        const phone = $("#phone").val().trim();
+        const message = $("#message").val().trim();
+        if (!name || !phone || !message) {
+            console.log("Please fill in all fields.");
+            return false;
+        }
+        // Additional validation can be added here (e.g., email format, phone number format)
+        // If validation passes, you can submit the form data via AJAX or any other method
+        return true;
+    };
+</script>
