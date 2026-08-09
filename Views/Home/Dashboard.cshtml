@@ -1,0 +1,279 @@
+﻿@{
+    ViewBag.Title = "Dashboard";
+}
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="~/css/dashboard.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-3.7.0.min.js"></script>
+
+</head>
+<body>
+    <div class="layout-wrapper vw-99">
+        <aside id="sidebar" class="sidebar cn-bg text-white" aria-hidden="false" aria-label="Main Sidebar">
+            <div class="sidebar-header d-flex align-items-center justify-content-between px-3 py-2">
+                <h5 class="mb-0 sidebar-title">Canteen</h5>
+            </div>
+            @if (User.Identity != null && User.Identity.IsAuthenticated)
+            {
+                <ul class="list-unstyled px-2 mt-2">
+                    <li class="py-2">
+                    <p class="mb-0 d-flex align-items-center gap-2 text-white">
+                        <i class="bi bi-speedometer2"></i>
+                        <a asp-controller="Admin" asp-action="Dashboard"
+                           data-ajax="true"
+                           data-ajax-method="GET"
+                           data-ajax-mode="replace"
+                           data-ajax-update="#target"
+                           class="text-white text-decoration-none nav-text">Dashboard</a>
+                </li>
+
+                @if(User.IsInRole("SuperAdmin"))
+                {
+                        <li class="py-2">
+                            <p class="mb-0 d-flex align-items-center gap-2 text-white">
+                                <i class="bi bi-speedometer2"></i>
+                                <a asp-controller="Admin" asp-action="Dashboard"
+                                   data-ajax="true"
+                                   data-ajax-method="GET"
+                                   data-ajax-mode="replace"
+                                   data-ajax-update="#target"
+                                   class="text-white text-decoration-none nav-text">New Customer</a>
+                        </li>
+                        <li class="py-2">
+                            <p class="mb-0 d-flex align-items-center gap-2 text-white">
+                                <i class="bi bi-speedometer2"></i>
+                                <a asp-controller="Admin" asp-action="Dashboard"
+                                   data-ajax="true"
+                                   data-ajax-method="GET"
+                                   data-ajax-mode="replace"
+                                   data-ajax-update="#target"
+                                   class="text-white text-decoration-none nav-text">Payments</a>
+                        </li>
+                }
+                    @if (User.IsInRole("Admin") || User.IsInRole("SuperAdmin"))
+                {
+                        <li class="py-2">
+                            <p class="mb-0 d-flex align-items-center gap-2 text-white">
+                                <i class="bi bi-journal-bookmark"></i>
+                                <a asp-controller="Admin" asp-action="Dashboard"
+                                   data-ajax="true"
+                                   data-ajax-method="GET"
+                                   data-ajax-mode="replace"
+                                   data-ajax-update="#target"
+                                   class="text-white text-decoration-none nav-text">Attendance</a>
+                        </li>
+                        <li class="py-2">
+                            <p class="mb-0 d-flex align-items-center gap-2 text-white">
+                                <i class="bi bi-journal-bookmark"></i>
+                                <a asp-controller="Admin" asp-action="Dashboard"
+                                   data-ajax="true"
+                                   data-ajax-method="GET"
+                                   data-ajax-mode="replace"
+                                   data-ajax-update="#target"
+                                   class="text-white text-decoration-none nav-text">Meal On/Off</a>
+                        </li>
+                        <li class="py-2">
+                            <p class="mb-0 d-flex align-items-center gap-2 text-white">
+                                <i class="bi bi-journal-bookmark"></i>
+                                <a asp-controller="Admin" asp-action="Dashboard"
+                                   data-ajax="true"
+                                   data-ajax-method="GET"
+                                   data-ajax-mode="replace"
+                                   data-ajax-update="#target"
+                                   class="text-white text-decoration-none nav-text">View Record</a>
+                        </li>
+                        <li class="py-2">
+                            <p class="mb-0 d-flex align-items-center gap-2 text-white">
+                                <i class="bi bi-journal-bookmark"></i>
+                                <a asp-controller="Admin" asp-action="Dashboard"
+                                   data-ajax="true"
+                                   data-ajax-method="GET"
+                                   data-ajax-mode="replace"
+                                   data-ajax-update="#target"
+                                   class="text-white text-decoration-none nav-text">Due</a>
+                        </li>
+                        <li class="py-2">
+                            <p class="mb-0 d-flex align-items-center gap-2 text-white">
+                                <i class="bi bi-journal-bookmark"></i>
+                                <a asp-controller="Admin" asp-action="Dashboard"
+                                   data-ajax="true"
+                                   data-ajax-method="GET"
+                                   data-ajax-mode="replace"
+                                   data-ajax-update="#target"
+                                   class="text-white text-decoration-none nav-text">Manage Extra</a>
+                        </li>
+                 }
+                    @if (User.IsInRole("User"))
+                {
+                        <li class="py-2">
+                            <p class="mb-0 d-flex align-items-center gap-2 text-white">
+                                <i class="bi bi-journal-bookmark"></i>
+                                <a asp-controller="Admin" asp-action="Dashboard"
+                                   data-ajax="true"
+                                   data-ajax-method="GET"
+                                   data-ajax-mode="replace"
+                                   data-ajax-update="#target"
+                                   class="text-white text-decoration-none nav-text">Meal Operation</a>
+                        </li>
+                        <li class="py-2">
+                            <p class="mb-0 d-flex align-items-center gap-2 text-white">
+                                <i class="bi bi-journal-bookmark"></i>
+                                <a asp-controller="Admin" asp-action="Dashboard"
+                                   data-ajax="true"
+                                   data-ajax-method="GET"
+                                   data-ajax-mode="replace"
+                                   data-ajax-update="#target"
+                                   class="text-white text-decoration-none nav-text">Attendance Rec</a>
+                        </li>
+                        <li class="py-2">
+                            <p class="mb-0 d-flex align-items-center gap-2 text-white">
+                                <i class="bi bi-journal-bookmark"></i>
+                                <a asp-controller="Admin" asp-action="Dashboard"
+                                   data-ajax="true"
+                                   data-ajax-method="GET"
+                                   data-ajax-mode="replace"
+                                   data-ajax-update="#target"
+                                   class="text-white text-decoration-none nav-text">Due Amount</a>
+                        </li>
+                        <li class="py-2">
+                            <p class="mb-0 d-flex align-items-center gap-2 text-white">
+                                <i class="bi bi-journal-bookmark"></i>
+                                <a asp-controller="Admin" asp-action="Dashboard"
+                                   data-ajax="true"
+                                   data-ajax-method="GET"
+                                   data-ajax-mode="replace"
+                                   data-ajax-update="#target"
+                                   class="text-white text-decoration-none nav-text">Pay Due</a>
+                        </li>
+                 }
+
+                
+            </ul>
+            }
+        </aside>
+        <button id="sidebarFloatToggle" class="sidebar-toggle-btn" aria-label="Toggle sidebar">
+            <i id="sidebarFloatIcon" class="bi bi-chevron-double-left"></i>
+        </button>
+        <div id="sidebarBackdrop" class="backdrop" hidden></div>
+        <main class="content-area">
+            <div class="container-fluid">
+                <div id="target">
+                    <a href="#">Admin</a>
+                </div>
+            </div>
+        </main>
+
+    </div>
+
+    <script>
+        // Sidebar controls: desktop and mobile (menu button removed)
+        const sidebar = document.getElementById("sidebar");
+        const floatToggle = document.getElementById("sidebarFloatToggle");
+        const floatIcon = document.getElementById("sidebarFloatIcon");
+        const backdrop = document.getElementById("sidebarBackdrop");
+
+        function isMobileView() {
+            return window.innerWidth < 992;
+        }
+
+        // Position the floating toggle so it hugs the sidebar edge
+        function positionFloatToggle() {
+            if (!floatToggle) return;
+            const rect = sidebar.getBoundingClientRect();
+            const headerHeight = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--header-height')) || 65;
+            const top = rect.top + headerHeight / 2;
+            // place button near the right edge of the sidebar (works both for full and collapsed widths)
+            const left = rect.left + rect.width - (floatToggle.offsetWidth / 2);
+            floatToggle.style.top = Math.max(8, top) + 'px';
+            floatToggle.style.left = Math.max(8, left) + 'px';
+        }
+
+        // Desktop & mobile mini toggle handler
+        if (floatToggle) {
+            floatToggle.addEventListener("click", () => {
+                const wasCollapsed = sidebar.classList.toggle("collapsed");
+                floatToggle.classList.toggle("collapsed", wasCollapsed);
+
+                // If we collapsed on mobile, ensure the overlay (mobile-open) is closed.
+                if (isMobileView()) {
+                    sidebar.classList.remove("mobile-open");
+                    backdrop.classList.remove("visible");
+                    backdrop.hidden = true;
+                    document.body.style.overflow = "";
+                    sidebar.setAttribute("aria-hidden", "" + !wasCollapsed);
+                } else {
+                    // desktop: update aria-hidden for accessibility
+                    sidebar.setAttribute("aria-hidden", "" + wasCollapsed);
+                }
+
+                // reposition after width change
+                setTimeout(positionFloatToggle, 200);
+            });
+        }
+
+        // Close when clicking backdrop
+        backdrop.addEventListener("click", () => {
+            sidebar.classList.remove("mobile-open");
+            backdrop.classList.remove("visible");
+            backdrop.hidden = true;
+            document.body.style.overflow = "";
+            sidebar.setAttribute("aria-hidden", "true");
+        });
+
+        // Close sidebar on resize if switching to desktop or mobile; reposition floating toggle
+        window.addEventListener("resize", () => {
+            if (!isMobileView()) {
+                // switch to desktop: ensure overlay closed
+                document.body.style.overflow = "";
+                sidebar.classList.remove("mobile-open");
+                backdrop.classList.remove("visible");
+                backdrop.hidden = true;
+                // keep collapsed if user set it
+                sidebar.setAttribute("aria-hidden", "" + sidebar.classList.contains("collapsed"));
+            } else {
+                // mobile: keep collapsed state if present (mini strip); don't force-remove it
+                if (sidebar.classList.contains("mobile-open")) {
+                    sidebar.setAttribute("aria-hidden", "false");
+                } else {
+                    sidebar.setAttribute("aria-hidden", "" + !sidebar.classList.contains("collapsed"));
+                }
+            }
+            // reposition the floating toggle
+            setTimeout(positionFloatToggle, 10);
+        });
+
+        // Accessibility: close with Escape when mobile-open
+        document.addEventListener("keydown", (e) => {
+            if (e.key === "Escape" && sidebar.classList.contains("mobile-open")) {
+                sidebar.classList.remove("mobile-open");
+                backdrop.classList.remove("visible");
+                backdrop.hidden = true;
+                document.body.style.overflow = "";
+                sidebar.setAttribute("aria-hidden", "true");
+            }
+        });
+
+        // initial position on load
+        window.addEventListener("load", () => {
+            setTimeout(positionFloatToggle, 10);
+        });
+
+        // also reposition once fonts/icons loaded or after layout changes
+        window.addEventListener("DOMContentLoaded", () => setTimeout(positionFloatToggle, 50));
+    </script>
+
+    <script>
+        /* Keep floating toggle hugging the sidebar while scrolling */
+        window.addEventListener('scroll', positionFloatToggle, { passive: true });
+    </script>
+ 
+
+</body>
+</html>
+
+<script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
