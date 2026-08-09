@@ -13,7 +13,7 @@ namespace CanteenManagement_2._0.Repository
         }
         public async Task<List<PublicQuery>> GetAllPublicQueries()
         {
-            return null;
+            return await Task.FromResult(new List<PublicQuery>());
         }
         public async Task<int> AddPublicQuery(PublicQuery query)
         {

@@ -2,11 +2,9 @@
 
 namespace CanteenManagement_2._0.Controllers
 {
+    [Route("admin")]
     public class AdminController : Controller
     {
-        public IActionResult Index()
-        {
-            return View();
-        }
+        
     }
 }

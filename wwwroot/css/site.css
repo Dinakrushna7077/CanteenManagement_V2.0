@@ -27,6 +27,9 @@ html {
 body{
     background-color:aliceblue;
 }
+.vw-99{
+    width:98.8vw;
+}
 
 .cn-bg {
     background-color: #2d3e50 !important;
