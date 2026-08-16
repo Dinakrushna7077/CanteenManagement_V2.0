@@ -12,6 +12,20 @@ public partial class Customer
     [StringLength(20)]
     public string Alias { get; set; } = null!;
 
+
+    public string GmailId { get; set; } = null!;
+
+    [StringLength(10)]
+    public string MobileNo { get; set; } = null!;
+
+    [StringLength(255)]
+    public string Password { get; set; } = null!;
+
+    public int RoleId { get; set; }
+
+    public bool ActiveStatus { get; set; }
+
+
     [StringLength(100)]
     public string Name { get; set; } = null!;
 
