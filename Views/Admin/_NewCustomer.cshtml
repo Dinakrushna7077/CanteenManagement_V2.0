@@ -1,0 +1,133 @@
+﻿@model CanteenManagement_2._0.Models.Customer
+
+
+<div class="container mt-4 mb-5">
+    <div class="card shadow-sm border-0">
+        <div class="card-header cn-bg text-white py-3">
+            <h4 class="card-title mb-0">
+                <i class="bi bi-person-plus-fill me-2"></i>Create New Customer
+            </h4>
+        </div>
+        <div class="card-body p-4">
+            <form asp-action="Create" method="post" id="createCustomerForm">
+                @Html.AntiForgeryToken()
+                
+                <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+
+                <h5 class="text-cn border-bottom pb-2 mb-3">
+                    <i class="bi bi-shield-lock me-1"></i> Account Credentials
+                </h5>
+                <div class="row g-3 mb-4">
+                    <div class="col-md-6">
+                        <label asp-for="Alias" class="form-label fw-bold">Alias / Canteen Code <span class="text-danger">*</span></label>
+                        <select asp-for="Alias" class="form-select" asp-items="ViewBag.DepartmentId">
+                            <option value="">-- Canteen Number --</option>
+                        </select>
+                        <span asp-validation-for="Alias" data-valmsg-for="Alias" data-valmsg-replace="true" class="text-danger small"></span>
+                    </div>
+                    <div class="col-md-6">
+                        <label asp-for="GmailId" class="form-label fw-bold">Gmail / Email <span class="text-danger">*</span></label>
+                        <input asp-for="GmailId" type="email" class="form-control" placeholder="user@gmail.com" />
+                        <span asp-validation-for="GmailId" data-valmsg-for="GmailId" data-valmsg-replace="true" class="text-danger small"></span>
+                    </div>
+                    <div class="col-md-6">
+                        <label asp-for="MobileNo" class="form-label fw-bold">Mobile No <span class="text-danger">*</span></label>
+                        <input asp-for="MobileNo" class="form-control" maxlength="10" placeholder="10-digit number" />
+                        <span asp-validation-for="MobileNo" data-valmsg-for="MobileNo" data-valmsg-replace="true" class="text-danger small"></span>
+                    </div>
+
+                    <!--  I will handle it in backend-->
+                    @* <div class="col-md-4">
+                        <label asp-for="Password" class="form-label fw-bold">Password <span class="text-danger">*</span></label>
+                        <input asp-for="Password" type="password" class="form-control" maxlength="255" placeholder="••••••••" required />
+                        <span asp-validation-for="Password" class="text-danger small"></span>
+                    </div> *@
+
+                    <div class="col-md-6 d-flex align-items-end">
+                        <div class="form-check form-switch mb-2">
+                            <input asp-for="ActiveStatus" class="form-check-input" type="checkbox" role="switch" checked />
+                            <label asp-for="ActiveStatus" class="form-check-label fw-bold">Account Active</label>
+                        </div>
+                    </div>
+                </div>
+
+                <h5 class="text-cn border-bottom pb-2 mb-3">
+                    <i class="bi bi-person-lines-fill me-1"></i> Personal & Academic Details
+                </h5>
+                <div class="row g-3 mb-4">
+                    <div class="col-md-6">
+                        <label asp-for="Name" class="form-label fw-bold">Full Name <span class="text-danger">*</span></label>
+                        <input asp-for="Name" class="form-control" maxlength="100" placeholder="User Moahnta" />
+                        <span asp-validation-for="Name" data-valmsg-for="Name" data-valmsg-replace="true" class="text-danger small"></span>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label asp-for="CollegeRoll" class="form-label fw-bold">College Roll</label>
+                        <input asp-for="CollegeRoll" class="form-control" maxlength="50" placeholder="e.g. BS(P) 22-217" />
+                        <span asp-validation-for="CollegeRoll" class="text-danger small"></span>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label asp-for="DepartmentId" class="form-label fw-bold">Department</label>
+                        <select asp-for="DepartmentId" class="form-select" asp-items="ViewBag.DepartmentId">
+                            <option value="">-- Select Department --</option>
+                        </select>
+                        <span asp-validation-for="DepartmentId" class="text-danger small"></span>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label asp-for="HonoursId" class="form-label fw-bold">Honours </label>
+                        <select asp-for="HonoursId" class="form-select" asp-items="ViewBag.HonoursId">
+                            <option value="">-- Select Honours --</option>
+                        </select>
+                        <span asp-validation-for="HonoursId" class="text-danger small"></span>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label asp-for="GuardianMobile" class="form-label fw-bold">Guardian Mobile</label>
+                        <input asp-for="GuardianMobile" class="form-control" maxlength="10" placeholder="10-digit number" />
+                        <span asp-validation-for="GuardianMobile" data-valmsg-for="GuardianMobile" data-valmsg-replace="true" class="text-danger small"></span>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label asp-for="Address" class="form-label fw-bold">Address</label>
+                        <input asp-for="Address" class="form-control" maxlength="250" placeholder="permanent residential address" />
+                        <span asp-validation-for="Address" data-valmsg-for="Address" data-valmsg-replace="true" class="text-danger small"></span>
+                    </div>
+                </div>
+
+                <h5 class="text-cn border-bottom pb-2 mb-3">
+                    <i class="bi bi-gear-fill me-1"></i> Facility Preferences
+                </h5>
+                <div class="row g-3 mb-4">
+                    <div class="col-md-4">
+                        <div class="card bg-light border-0 p-3">
+                            <div class="form-check form-switch">
+                                <input asp-for="IsHosteler" class="form-check-input" type="checkbox" role="switch" />
+                                <label asp-for="IsHosteler" class="form-check-label fw-bold">Hosteler Facility</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card bg-light border-0 p-3">
+                            <div class="form-check form-switch">
+                                <input asp-for="MealStatus" class="form-check-input" type="checkbox" role="switch" />
+                                <label asp-for="MealStatus" class="form-check-label fw-bold">Meal Subscription Active</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-end gap-2 border-top pt-3">
+                    <button class="btn btn-outline-secondary px-4" id="Cancel">
+                        <i class="bi bi-x-circle me-1" ></i> Cancel
+                    </button>
+                    
+                    <button type="submit" class="btn btn-cn px-4">
+                        <i class="bi bi-check-circle me-1"></i> Save Customer
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
