@@ -1,6 +1,7 @@
 ﻿using CanteenManagement_2._0.Models;
 using CanteenManagement_2._0.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace CanteenManagement_2._0.Controllers
 {
@@ -13,7 +14,12 @@ namespace CanteenManagement_2._0.Controllers
             service= _service;
         }
         [HttpGet("add-customer")]
-        public IActionResult NewCustomer() => PartialView("_NewCustomer");
+        public async Task<IActionResult> NewCustomer()
+        {
+            List<string> alias = await service.GetAliasAsync(10);
+            ViewBag.Alias = alias.Select(x => new SelectListItem{Value = x,Text = x}).ToList();
+            return PartialView("_NewCustomer");
+        }
         [HttpPost("add-customer")]
         public async Task<IActionResult> NewCustomer(Customer cust)
         {

@@ -45,6 +45,23 @@ namespace CanteenManagement_2._0.Repository
                 return await Task.FromResult(0);
             }
         }
+        public async Task<(List<string> alias,int maxAlias)> AvailableAlias(int limit)
+        {
+            try
+            {
+                DynamicParameters param = new DynamicParameters();
+                param.Add("@limit",limit);
+                param.Add("@lastAlias",dbType:DbType.Int32,direction:ParameterDirection.Output);
+                SqlConnection con=db.GetConnection();
+                List<string> aliasList=(await con.QueryAsync<string>("ProcGetAlias",param,commandType: CommandType.StoredProcedure)).ToList();
+                int maxAliasNumber = param.Get<int>("@lastAlias");
+                return await Task.FromResult((aliasList,maxAliasNumber));
+            }
+            catch
+            {
+                return (new List<string>(),0);
+            }
+        }
 
     }
 }

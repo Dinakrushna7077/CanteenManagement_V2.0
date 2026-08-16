@@ -20,7 +20,7 @@
                 <div class="row g-3 mb-4">
                     <div class="col-md-6">
                         <label asp-for="Alias" class="form-label fw-bold">Alias / Canteen Code <span class="text-danger">*</span></label>
-                        <select asp-for="Alias" class="form-select" asp-items="ViewBag.DepartmentId">
+                        <select asp-for="Alias" class="form-select" asp-items="@ViewBag.Alias">
                             <option value="">-- Canteen Number --</option>
                         </select>
                         <span asp-validation-for="Alias" data-valmsg-for="Alias" data-valmsg-replace="true" class="text-danger small"></span>
