@@ -1,4 +1,11 @@
-﻿<!DOCTYPE html>
+﻿
+@{
+    var role = Context.Session.GetString("role");
+    //var user = Context.Session.GetString("userName");
+}
+
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -8,6 +15,7 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="icon" href="~/fav.png" type="image/svg" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
     @* <link rel="stylesheet" href="~/CanteenManagement_2._0.styles.css" asp-append-version="true" /> *@
 </head>
 <body>
@@ -35,16 +43,26 @@
                     </ul>
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
 
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="canteen" asp-action="login">Login</a>
-                        </li>
+                        @if(role==null)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="canteen" asp-action="login">Login</a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="" asp-action="#">Profile</a>
+                            </li>
+                        }
+
                     </ul>
                 </div>
             </div>
         </nav>
     </header>
-    <div class="container">
-        <main role="main" class="pb-3">
+    <div class="container mx-0 p-0 ">
+        <main role="main" class="pb-3 vw-99">
             @RenderBody()
         </main>
     </div>

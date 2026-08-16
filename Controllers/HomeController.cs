@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using CanteenManagement_2._0.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace CanteenManagement_2._0.Controllers
 {
@@ -7,6 +9,17 @@ namespace CanteenManagement_2._0.Controllers
         public IActionResult Index()
         {
             return View();
+        }
+        [Authorize]
+        [HttpGet("dashboard")]
+        public IActionResult Dashboard() => View();
+        [HttpGet("homepage")]
+        public IActionResult Home()=>PartialView("_Dashboard");
+
+        public async Task<IActionResult> SubmitQuery(PublicQuery qry)
+        {
+            //Service call to save the query in the database
+            return await Task.FromResult<IActionResult>(Json(new {success = true, message = "Query submitted successfully!"}));
         }
     }
 }

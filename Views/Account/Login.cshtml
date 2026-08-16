@@ -45,7 +45,7 @@
                         <p class="text-muted small mb-0">Access your canteen dashboard</p>
                     </div>
 
-                    <form method="post" asp-action="login" asp-controller="Account">
+                    <form method="post" id="loginForm" asp-action="login" asp-controller="Account">
                         @Html.AntiForgeryToken()
                         <div class="input-group-custom container-fluid">
                             <label class="form-label">Email ID Or User Name</label>
@@ -74,6 +74,79 @@
 
         </div>
     </div>
+
+    <script type="text/javascript">
+            $("#loginForm").submit((event)=>{
+                event.preventDefault();
+                if(loginFormValidation())
+                {
+                $.ajax({
+                    url: '/canteen/login',
+                    type: 'POST',
+                    data: $("#loginForm").serialize(),
+                    success: function (response) {
+                        //console.log(response);
+                        if (response.success) {
+                            console.log('Login successful');
+                            window.location.href = response.redirectUrl;
+                        } else {
+                            console.log(response.message);
+                        }
+                    },
+                    error: function () {
+                        console.log('An error occurred while processing your request.');
+                    }
+                });
+                }
+            });
+                    const loginFormValidation = () => {
+
+                const userId = $("#UserId").val().trim();
+                const password = $("#Password").val();
+
+                let isValid = true;
+
+                if (!userId) {
+            console.log("Please enter your Email ID or Mobile Number.");
+            return false;
+        }
+
+        if (/^\d+$/.test(userId)) {
+
+            if (!isMobile(userId)) {
+                console.log("Please enter a valid Mobile Number.");
+                isValid = false;
+            }
+        }
+        else if (userId.includes("@@") || /[a-zA-Z]/.test(userId)) {
+
+            if (!isMail(userId)) {
+                console.log("Please enter a valid Gmail ID.");
+                isValid = false;
+            }
+        }
+        else {
+            console.log("Please enter a valid Mobile Number or Gmail ID.");
+            isValid = false;
+        }
+
+                if (!password) {
+                    console.log("Please enter your password.");
+                    isValid = false;
+                }
+
+                return isValid;
+            };
+
+            const isMail=(userId)=>{
+                return /^[^\s@@]+@@[^\s@@]+\.[^\s@@]+$/.test(userId);
+            };
+
+
+            const isMobile = (userId) => {
+                 return /^[6-9]\d{9}$/.test(userId);
+            };
+    </script>
 
 </body>
 </html>

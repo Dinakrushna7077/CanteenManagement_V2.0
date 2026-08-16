@@ -27,9 +27,20 @@ html {
 body{
     background-color:aliceblue;
 }
+.vw-99{
+    width:98.8vw;
+}
 
 .cn-bg {
     background-color: #2d3e50 !important;
+}
+.btn-cn {
+    background-color: #2d3e50 !important;
+    color:white;
+}
+.btn-cn:hover {
+    background-color: #2d3e55 !important;
+    color:white;
 }
 
 .navbar.scrolled-up {
@@ -37,7 +48,7 @@ body{
     transition: background-color 0.3s;
 }
 
-.text-elearning {
+.text-cn {
     color: #2d3e50 !important;
     background-color: white !important;
 }
