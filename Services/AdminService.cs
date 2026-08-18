@@ -1,6 +1,8 @@
 ﻿using CanteenManagement_2._0.Models;
 using CanteenManagement_2._0.Repository.Interfaces;
 using CanteenManagement_2._0.Services.Interfaces;
+using Microsoft.AspNetCore.Identity;
+using System.Reflection;
 
 namespace CanteenManagement_2._0.Services
 {
@@ -17,8 +19,9 @@ namespace CanteenManagement_2._0.Services
             ResponseViewModel<int> response=new ResponseViewModel<int>();
             if (cust != null)
             {
-                int x = await repo.NewCustomer(cust);
-                if (x > 0)
+                cust.Password = GenerateDefaultPassword(cust.Name, cust.Alias);
+                bool isSuccess = await repo.NewCustomer(cust);
+                if (isSuccess)
                 {
                     response.Success = true;
                     response.Message = "New Customer Registered...";
@@ -30,6 +33,16 @@ namespace CanteenManagement_2._0.Services
             
              response.Message = "Please Enter All required fields...";
             return await Task.FromResult(response);
+        }
+        private string GenerateDefaultPassword(string name,string alias)
+        {
+            name = (name ?? string.Empty).Trim();
+            alias = (alias ?? string.Empty).Trim();
+            string pass = (name.Length >= 4 ? name.Substring(0, 4) : name).ToUpper();
+            pass += $"@{alias}";
+            PasswordHasher<string> hasher = new PasswordHasher<string>();
+            return hasher.HashPassword(name, pass);
+
         }
         public async Task<List<string>> GetAliasAsync(int limit)
         {
@@ -49,6 +62,14 @@ namespace CanteenManagement_2._0.Services
                 result.Add(i.ToString("D3"));
             }
             return result;
+        }
+        public async Task<List<Department>> AllDepartmentsAsync()
+        {
+            return await repo.AllDepartments();
+        }
+        public async Task<List<Honour>> GetHonoursAsync(int deptId)
+        {
+            return await repo.GetHonours(deptId);
         }
     }
 }

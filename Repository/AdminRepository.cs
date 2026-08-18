@@ -10,11 +10,12 @@ namespace CanteenManagement_2._0.Repository
     public class AdminRepository:IAdminRepository
     {
         private readonly DapperContext db;
+        SqlConnection con;
         public AdminRepository(DapperContext _db)
         {
             db = _db;
         }
-        public async Task<int> NewCustomer(Customer cust)
+        public async Task<bool> NewCustomer(Customer cust)
         {
             try
             {
@@ -22,7 +23,7 @@ namespace CanteenManagement_2._0.Repository
                 param.Add("@gmail", cust.GmailId);
                 param.Add("@mobile", cust.MobileNo);
                 param.Add("@pass", cust.Password);
-                param.Add("@roleId", cust.RoleId);
+                param.Add("@roleId", 3);
                 param.Add("@isActive", cust.ActiveStatus);
                 param.Add("@name", cust.Name);
                 param.Add("@isHosteler", cust.IsHosteler);
@@ -34,15 +35,15 @@ namespace CanteenManagement_2._0.Repository
                 param.Add("@mealStatus", cust.MealStatus);
                 param.Add("@alias", cust.Alias);
 
-                SqlConnection con = db.GetConnection();
+                con = db.GetConnection();
                 if (con.State == ConnectionState.Closed)
                     con.Open();
                 int x = await con.ExecuteAsync("ProcInsertCustomer", param, commandType: CommandType.StoredProcedure);
-                return await Task.FromResult(x);
+                return true;
             }
             catch
             {
-                return await Task.FromResult(0);
+                return false;
             }
         }
         public async Task<(List<string> alias,int maxAlias)> AvailableAlias(int limit)
@@ -52,7 +53,7 @@ namespace CanteenManagement_2._0.Repository
                 DynamicParameters param = new DynamicParameters();
                 param.Add("@limit",limit);
                 param.Add("@lastAlias",dbType:DbType.Int32,direction:ParameterDirection.Output);
-                SqlConnection con=db.GetConnection();
+                con=db.GetConnection();
                 List<string> aliasList=(await con.QueryAsync<string>("ProcGetAlias",param,commandType: CommandType.StoredProcedure)).ToList();
                 int maxAliasNumber = param.Get<int>("@lastAlias");
                 return await Task.FromResult((aliasList,maxAliasNumber));
@@ -61,6 +62,21 @@ namespace CanteenManagement_2._0.Repository
             {
                 return (new List<string>(),0);
             }
+        }
+        public async Task<List<Department>> AllDepartments()
+        {
+            DynamicParameters param = new DynamicParameters();
+            param.Add("@action", 'D');
+            con = db.GetConnection();
+            return (await con.QueryAsync<Department>("ProcGetDropdown", param,commandType: CommandType.StoredProcedure)).ToList();
+        }
+        public async Task<List<Honour>> GetHonours(int deptId)
+        {
+            DynamicParameters param = new DynamicParameters();
+            param.Add("@action", 'H');
+            param.Add("@deptId", deptId);
+            con = db.GetConnection();
+            return (await con.QueryAsync<Honour>("ProcGetDropdown", param,commandType: CommandType.StoredProcedure)).ToList();
         }
 
     }

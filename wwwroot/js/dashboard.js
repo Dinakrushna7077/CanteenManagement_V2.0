@@ -87,12 +87,27 @@ $(document).ready(() => {
         return isValid;
     };
 
-    $(document).on("submit", "#createCustomerForm", (event) => {
+    $(document).on("submit", "#createCustomerForm", function(event) {
         event.preventDefault();
-        console.log("Form submit triggered");
-
         if (isValidForm()) {
-            console.log("New Customer Created");
+            $.ajax({
+                url: "/admin/add-customer",
+                data: $(this).serialize(),
+                type: "POST",
+                success: function (response) {
+                    $("#createCustomerForm")[0].reset();
+                    if (response.success) {
+                        console.log(response.message);
+                    } else {
+                        console.log(response.message);
+                    }
+                },
+                error: function (response) {
+                    console.log(response.message);
+                }
+            });
         }
     });
 });
+
+

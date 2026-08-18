@@ -6,5 +6,7 @@ namespace CanteenManagement_2._0.Services.Interfaces
     {
         Task<ResponseViewModel<int>> NewCustomerAsync(Customer cust);
         Task<List<string>> GetAliasAsync(int limit);
+        Task<List<Department>> AllDepartmentsAsync();
+        Task<List<Honour>> GetHonoursAsync(int deptId);
     }
 }

@@ -69,7 +69,7 @@
 
                     <div class="col-md-6">
                         <label asp-for="DepartmentId" class="form-label fw-bold">Department</label>
-                        <select asp-for="DepartmentId" class="form-select" asp-items="ViewBag.DepartmentId">
+                        <select asp-for="DepartmentId" class="form-select" asp-items="ViewBag.Department">
                             <option value="">-- Select Department --</option>
                         </select>
                         <span asp-validation-for="DepartmentId" class="text-danger small"></span>
@@ -77,7 +77,7 @@
 
                     <div class="col-md-6">
                         <label asp-for="HonoursId" class="form-label fw-bold">Honours </label>
-                        <select asp-for="HonoursId" class="form-select" asp-items="ViewBag.HonoursId">
+                        <select asp-for="HonoursId" class="form-select" asp-items="ViewBag.Honours">
                             <option value="">-- Select Honours --</option>
                         </select>
                         <span asp-validation-for="HonoursId" class="text-danger small"></span>
@@ -131,3 +131,20 @@
         </div>
     </div>
 </div>
+<script>
+    $("#DepartmentId").on("change", function(){
+        //console.log("changed");
+        const did = $(this).val();
+        $.getJSON("/admin/get-honours", {deptId:did}, (honors) => {
+
+            $("#HonoursId").empty();
+            let options = `<option value="">-- Select Honours --</option>`;
+            console.log(honors);
+            $.each(honors, (index, item) => {
+                options += `<option value="${item.id}">${item.honoursName}</option>`;
+            });
+            $("#HonoursId").html(options);
+            console.log("bind complete");
+        });
+    });
+</script>
