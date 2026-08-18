@@ -14,14 +14,14 @@ namespace CanteenManagement_2._0.Services
             repo = _repo;
         }
 
-        public async Task<ResponseViewModel<int>> NewCustomerAsync(Customer cust)
+        public async Task<ResponseViewModel<int>> NewCustomerAsync(Customer cust, long createdBy)
         {
             ResponseViewModel<int> response=new ResponseViewModel<int>();
             if (cust != null)
             {
                 cust.Password = GenerateDefaultPassword(cust.Name, cust.Alias);
-                bool isSuccess = await repo.NewCustomer(cust);
-                if (isSuccess)
+                int n = await repo.NewCustomer(cust,createdBy);
+                if (n>0)
                 {
                     response.Success = true;
                     response.Message = "New Customer Registered...";

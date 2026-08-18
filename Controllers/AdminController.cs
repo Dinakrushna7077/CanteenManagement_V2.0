@@ -37,8 +37,16 @@ namespace CanteenManagement_2._0.Controllers
         [HttpPost("add-customer")]
         public async Task<IActionResult> NewCustomer(Customer cust)
         {
-            ResponseViewModel<int> response = await service.NewCustomerAsync(cust);
-            if(response.Success)
+            ResponseViewModel<int> response = new ResponseViewModel<int>();
+            var uid = HttpContext.Session.GetString("uid");
+            if (uid == null)
+            {
+                response.Message = "Access Denied...";
+                return Unauthorized(response);
+            }
+            long createdBy = Convert.ToInt64(uid);
+            response= await service.NewCustomerAsync(cust,createdBy);
+            if (response.Success)
             {
                 return Ok(response);
             }

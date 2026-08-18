@@ -15,16 +15,17 @@ namespace CanteenManagement_2._0.Repository
         {
             db = _db;
         }
-        public async Task<bool> NewCustomer(Customer cust)
+        public async Task<int> NewCustomer(Customer cust, long createdBy)
         {
             try
             {
                 DynamicParameters param = new DynamicParameters();
+                param.Add("@action", 'I');
                 param.Add("@gmail", cust.GmailId);
                 param.Add("@mobile", cust.MobileNo);
                 param.Add("@pass", cust.Password);
                 param.Add("@roleId", 3);
-                param.Add("@isActive", cust.ActiveStatus);
+                param.Add("@isActive", cust.ActiveStatus);//----
                 param.Add("@name", cust.Name);
                 param.Add("@isHosteler", cust.IsHosteler);
                 param.Add("@departmentId", cust.DepartmentId);
@@ -34,16 +35,18 @@ namespace CanteenManagement_2._0.Repository
                 param.Add("@guardianMobile", cust.GuardianMobile);
                 param.Add("@mealStatus", cust.MealStatus);
                 param.Add("@alias", cust.Alias);
+                param.Add("@performedBy", createdBy);
+
 
                 con = db.GetConnection();
                 if (con.State == ConnectionState.Closed)
                     con.Open();
-                int x = await con.ExecuteAsync("ProcInsertCustomer", param, commandType: CommandType.StoredProcedure);
-                return true;
+                int x = await con.ExecuteAsync("ProcInsertOrUpdateCustomer", param, commandType: CommandType.StoredProcedure);
+                return await Task.FromResult(x);
             }
             catch
             {
-                return false;
+                return 0;
             }
         }
         public async Task<(List<string> alias,int maxAlias)> AvailableAlias(int limit)
