@@ -14,6 +14,9 @@ builder.Services.AddScoped<IAccountRepository,AccountRepository>();
 builder.Services.AddScoped<IAccountService,AccountService>();
 builder.Services.AddScoped<IAdminRepository,AdminRepository>();
 builder.Services.AddScoped<IAdminService,AdminService>();
+
+builder.Services.AddScoped<IAttendanceRepository, AttendanceRepository>();
+
 builder.Services.AddSession(option => option.IdleTimeout = TimeSpan.FromHours(1));
 builder.Services.AddMemoryCache();
 

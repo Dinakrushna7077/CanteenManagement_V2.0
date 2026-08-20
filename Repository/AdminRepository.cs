@@ -10,7 +10,6 @@ namespace CanteenManagement_2._0.Repository
     public class AdminRepository:IAdminRepository
     {
         private readonly DapperContext db;
-        SqlConnection con;
         public AdminRepository(DapperContext _db)
         {
             db = _db;
@@ -38,7 +37,7 @@ namespace CanteenManagement_2._0.Repository
                 param.Add("@performedBy", createdBy);
 
 
-                con = db.GetConnection();
+                SqlConnection con = db.GetConnection();
                 if (con.State == ConnectionState.Closed)
                     con.Open();
                 int x = await con.ExecuteAsync("ProcInsertOrUpdateCustomer", param, commandType: CommandType.StoredProcedure);
@@ -56,7 +55,7 @@ namespace CanteenManagement_2._0.Repository
                 DynamicParameters param = new DynamicParameters();
                 param.Add("@limit",limit);
                 param.Add("@lastAlias",dbType:DbType.Int32,direction:ParameterDirection.Output);
-                con=db.GetConnection();
+                SqlConnection con = db.GetConnection();
                 List<string> aliasList=(await con.QueryAsync<string>("ProcGetAlias",param,commandType: CommandType.StoredProcedure)).ToList();
                 int maxAliasNumber = param.Get<int>("@lastAlias");
                 return await Task.FromResult((aliasList,maxAliasNumber));
@@ -70,7 +69,7 @@ namespace CanteenManagement_2._0.Repository
         {
             DynamicParameters param = new DynamicParameters();
             param.Add("@action", 'D');
-            con = db.GetConnection();
+            SqlConnection con = db.GetConnection();
             return (await con.QueryAsync<Department>("ProcGetDropdown", param,commandType: CommandType.StoredProcedure)).ToList();
         }
         public async Task<List<Honour>> GetHonours(int deptId)
@@ -78,7 +77,7 @@ namespace CanteenManagement_2._0.Repository
             DynamicParameters param = new DynamicParameters();
             param.Add("@action", 'H');
             param.Add("@deptId", deptId);
-            con = db.GetConnection();
+            SqlConnection con = db.GetConnection();
             return (await con.QueryAsync<Honour>("ProcGetDropdown", param,commandType: CommandType.StoredProcedure)).ToList();
         }
 
